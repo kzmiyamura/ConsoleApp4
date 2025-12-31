@@ -6,16 +6,35 @@ namespace ConsoleApp4
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("数字を1つ入力してください:");
-            int x = int.Parse(Console.ReadLine() ?? "0");
+            Console.WriteLine("2つの数字を入力して足し算します。");
 
-            Console.WriteLine("もう1つ入力してください:");
-            int y = int.Parse(Console.ReadLine() ?? "0");
+            int x = ReadIntFromConsole("1つ目の数字を入力してください:");
+            int y = ReadIntFromConsole("2つ目の数字を入力してください:");
 
-            var calc = new Calculator();
-            int result = calc.Add(x, y);
+            Calculator calc = new Calculator();
+            int sum = calc.Add(x, y);
 
-            Console.WriteLine($"結果: {result}");
+            Console.WriteLine($"結果: {x} + {y} = {sum}");
+        }
+
+        // 入力チェック付きメソッド
+        static int ReadIntFromConsole(string message)
+        {
+            int result;
+            string? input;
+
+            do
+            {
+                Console.WriteLine(message);
+                input = Console.ReadLine();
+
+                if (!int.TryParse(input, out result))
+                {
+                    Console.WriteLine("数字を正しく入力してください。");
+                }
+            } while (!int.TryParse(input, out result));
+
+            return result;
         }
     }
 }
